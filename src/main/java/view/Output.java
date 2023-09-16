@@ -15,7 +15,7 @@ public class Output {
     public static void printOutput(List<Cicilan> cicilan) {
         System.out.println("Jumlah Cicilan Per Tahun:");
         for (Cicilan cicilanBaru : cicilan) {
-            System.out.println(String.format("Tahun: %d, Jumlah Cicilan: Rp%,.2f, Suku Bunga: %,.2f", cicilanBaru.getTahun(), cicilanBaru.getJumlahCicilan(), cicilanBaru.getSukuBunga()));
+            System.out.println(String.format("Tahun: %d, Jumlah Cicilan: Rp%,.2f /bulan, Suku Bunga: %,.2f", cicilanBaru.getTahun(), cicilanBaru.getJumlahCicilan(), cicilanBaru.getSukuBunga()));
         }
     }
 }

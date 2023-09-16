@@ -79,13 +79,13 @@ public class Pinjaman {
     }
     
     public double getSukuBunga() {
-        if (jenisKendaraan.equals("Mobil")) {
+        if (jenisKendaraan.equalsIgnoreCase("Mobil")) {
             return  8;
         } else {
             return  9;
         }
     }
-    
+   
     public double getCicilanPerBulan(double bunga) {
         double pokokPinjaman = jumlahPinjaman - jumlahDP;
         double bungaPerTahun = bunga / 100;
@@ -94,10 +94,11 @@ public class Pinjaman {
 
         return angsuranPerBulan;
     }
-    
+
     public List<Cicilan> getCicilan() {
         List<Cicilan> cicilan = new ArrayList<>();
         double bungaPerTahun = getSukuBunga();
+        double sisaPinjaman = jumlahPinjaman - jumlahDP;
         for (int tahun = 1; tahun <= tenorPinjaman; tahun++) {
             
             if(tahun > 1){
@@ -107,8 +108,8 @@ public class Pinjaman {
                     bungaPerTahun += 0.5;
                 }
             }
-            double sisaPinjaman = jumlahPinjaman - jumlahDP;
-            double angsuranPerBulan = sisaPinjaman* bungaPerTahun * Math.pow(1 + bungaPerTahun, tenorPinjaman) / (Math.pow(1 + bungaPerTahun, tenorPinjaman) - 1);
+            double bungaPerBulan = (bungaPerTahun/100)/12;
+            double angsuranPerBulan = sisaPinjaman/tenorPinjaman * (bungaPerBulan / (1 - Math.pow(1 + bungaPerBulan, -12)));
 
             Cicilan cicilanBaru = new Cicilan(tahun, angsuranPerBulan, bungaPerTahun);
             cicilan.add(cicilanBaru);
