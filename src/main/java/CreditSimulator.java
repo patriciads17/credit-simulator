@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package modul;
+import controller.Controller;
 
 /**
  *
@@ -11,6 +11,16 @@ package modul;
 public class CreditSimulator {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        if (args.length == 0) {
+            Controller controller = new Controller();
+            controller.createPinjaman();
+        } else if (args.length == 1) {
+            try {
+                Controller controller = new Controller();
+                controller.createPinjamanByTxt();
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
     }
 }
