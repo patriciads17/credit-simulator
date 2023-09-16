@@ -102,9 +102,9 @@ public class Pinjaman {
             
             if(tahun > 1){
                 if (tahun % 2 == 0) {
-                    bungaPerTahun += 0.5;
-                } else {
                     bungaPerTahun += 0.1;
+                } else {
+                    bungaPerTahun += 0.5;
                 }
             }
             double sisaPinjaman = jumlahPinjaman - jumlahDP;
