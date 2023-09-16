@@ -20,7 +20,7 @@ public class Controller {
     
     public void createPinjaman() {
         pinjaman = Input.readInput();
-        if (pinjaman.getKondisiKendaraan().equals("Baru") && pinjaman.getTahunKendaraan() < Calendar.getInstance().get(Calendar.YEAR) - 1) {
+        if (pinjaman.getKondisiKendaraan().equalsIgnoreCase("Baru") && pinjaman.getTahunKendaraan() < Calendar.getInstance().get(Calendar.YEAR) - 1) {
             System.out.println("Tahun kendaraan harus lebih besar atau sama dengan tahun sekarang.");
             return;
         }
@@ -30,7 +30,7 @@ public class Controller {
             return;
         }
 
-        if (pinjaman.getJenisKendaraan().equals("Mobil")) {
+        if (pinjaman.getJenisKendaraan().equalsIgnoreCase("Mobil")) {
             if (pinjaman.getJumlahDP() < (pinjaman.getJumlahPinjaman() * 0.35)) {
                 System.out.println("Jumlah DP untuk mobil baru harus lebih besar atau sama dengan 35% dari jumlah pinjaman.");
                 return;
