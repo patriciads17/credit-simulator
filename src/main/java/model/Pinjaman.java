@@ -13,20 +13,6 @@ import java.util.List;
  * @author LENOVO
  */
 public class Pinjaman {
-    /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package model;
-import java.util.ArrayList;
-import java.util.List;
-import model.Cicilan;
-
-/**
- *
- * @author LENOVO
- */
-public class Pinjaman {
 
     private String jenisKendaraan;
     private String kondisiKendaraan;
@@ -99,7 +85,7 @@ public class Pinjaman {
             return  9;
         }
     }
-
+    
     public double getCicilanPerBulan(double bunga) {
         double pokokPinjaman = jumlahPinjaman - jumlahDP;
         double bungaPerTahun = bunga / 100;
@@ -108,29 +94,4 @@ public class Pinjaman {
 
         return angsuranPerBulan;
     }
-
-    public List<Cicilan> getCicilan() {
-        List<Cicilan> cicilan = new ArrayList<>();
-        double bungaPerTahun = getSukuBunga();
-        for (int tahun = 1; tahun <= tenorPinjaman; tahun++) {
-            
-            if(tahun > 1){
-                if (tahun % 2 == 0) {
-                    bungaPerTahun += 0.1;
-                } else {
-                    bungaPerTahun += 0.5;
-                }
-            }
-            double sisaPinjaman = jumlahPinjaman - jumlahDP;
-            double angsuranPerBulan = sisaPinjaman* bungaPerTahun * Math.pow(1 + bungaPerTahun, tenorPinjaman) / (Math.pow(1 + bungaPerTahun, tenorPinjaman) - 1);
-
-            Cicilan cicilanBaru = new Cicilan(tahun, angsuranPerBulan, bungaPerTahun);
-            cicilan.add(cicilanBaru);
-        }
-
-        return cicilan;
-    }
-}
-
-
 }
