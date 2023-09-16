@@ -94,4 +94,26 @@ public class Pinjaman {
 
         return angsuranPerBulan;
     }
+    
+    public List<Cicilan> getCicilan() {
+        List<Cicilan> cicilan = new ArrayList<>();
+        double bungaPerTahun = getSukuBunga();
+        for (int tahun = 1; tahun <= tenorPinjaman; tahun++) {
+            
+            if(tahun > 1){
+                if (tahun % 2 == 0) {
+                    bungaPerTahun += 0.5;
+                } else {
+                    bungaPerTahun += 0.1;
+                }
+            }
+            double sisaPinjaman = jumlahPinjaman - jumlahDP;
+            double angsuranPerBulan = sisaPinjaman* bungaPerTahun * Math.pow(1 + bungaPerTahun, tenorPinjaman) / (Math.pow(1 + bungaPerTahun, tenorPinjaman) - 1);
+
+            Cicilan cicilanBaru = new Cicilan(tahun, angsuranPerBulan, bungaPerTahun);
+            cicilan.add(cicilanBaru);
+        }
+
+        return cicilan;
+    }
 }
