@@ -2,7 +2,7 @@ Credit Simulator
 
 Build using Java  
 Github : https://github.com/patriciads17/credit-simulator  
-Command to run : java -jar credit_simulator.jar
+Command to run : java -jar credit_simulator.jar  
 Cara menggunakan:  
 1. Input Jenis Kendaraan Motor|Mobil  
 2. Input Kendaraan Bekas|Baru  
