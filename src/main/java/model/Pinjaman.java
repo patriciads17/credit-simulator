@@ -85,33 +85,29 @@ public class Pinjaman {
             return  9;
         }
     }
-   
-    public double getCicilanPerBulan(double bunga) {
-        double pokokPinjaman = jumlahPinjaman - jumlahDP;
-        double bungaPerTahun = bunga / 100;
-        double bungaPerBulan = bungaPerTahun / 12;
-        double angsuranPerBulan = pokokPinjaman / tenorPinjaman + bungaPerBulan;
-
-        return angsuranPerBulan;
-    }
 
     public List<Cicilan> getCicilan() {
         List<Cicilan> cicilan = new ArrayList<>();
-        double bungaPerTahun = getSukuBunga();
-        double sisaPinjaman = jumlahPinjaman - jumlahDP;
+        double bunga = getSukuBunga();
+        double pokokPinjaman = jumlahPinjaman - jumlahDP;
+        double totalPinjaman = (pokokPinjaman * bunga/100)+ pokokPinjaman;
+        double angsuranPerBulan = 0;
+        double angsuranPerTahun = 0;
         for (int tahun = 1; tahun <= tenorPinjaman; tahun++) {
-            
+            angsuranPerBulan = totalPinjaman /(12*tenorPinjaman);
             if(tahun > 1){
                 if (tahun % 2 == 0) {
-                    bungaPerTahun += 0.1;
+                    bunga += 0.1;
                 } else {
-                    bungaPerTahun += 0.5;
+                    bunga += 0.5;
                 }
+                pokokPinjaman = totalPinjaman - angsuranPerTahun;
+                totalPinjaman = (pokokPinjaman * bunga/100)+ pokokPinjaman;
+                angsuranPerBulan = totalPinjaman /((12*tenorPinjaman)- (tahun-1)*12);
             }
-            double bungaPerBulan = (bungaPerTahun/100)/12;
-            double angsuranPerBulan = sisaPinjaman/tenorPinjaman * (bungaPerBulan / (1 - Math.pow(1 + bungaPerBulan, -12)));
+            angsuranPerTahun = angsuranPerBulan*12;
 
-            Cicilan cicilanBaru = new Cicilan(tahun, angsuranPerBulan, bungaPerTahun);
+            Cicilan cicilanBaru = new Cicilan(tahun, angsuranPerBulan, bunga);
             cicilan.add(cicilanBaru);
         }
 
