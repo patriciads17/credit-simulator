@@ -26,8 +26,8 @@ public class Controller {
         showCicilan(pinjaman);
     }
     
-    public void createPinjamanByTxt() throws Exception {
-        String[] data = readInputFromTxt();
+    public void createPinjamanByTxt(String filePath) throws Exception {
+        String[] data = readInputFromTxt(filePath);
         pinjaman = new Pinjaman(data[0], data[1], Integer.parseInt(data[2]), Integer.parseInt(data[3]), (int) Double.parseDouble(data[4]), Double.parseDouble(data[5]));
         validasiPinjaman(pinjaman);
         showCicilan(pinjaman);
@@ -38,17 +38,26 @@ public class Controller {
         Output.printOutput(cicilan);
     }
     
-    private String[] readInputFromTxt() throws Exception {
+    private String[] readInputFromTxt(String filePath) throws Exception {
 
-        File file = new File("input.txt");
-        Scanner scanner = new Scanner(file);
-        String[] data = new String[6];
-        for (int i = 0; i < data.length; i++) {
-            data[i] = scanner.nextLine();
-        }
-        scanner.close();
-        return data;
+    File file = new File(filePath);
+    if (!file.exists()) {
+        throw new Exception("File " + filePath + " does not exist.");
     }
+
+    Scanner scanner = new Scanner(file);
+    String[] data = new String[6];
+    for (int i = 0; i < data.length; i++) {
+        if (!scanner.hasNextLine()) {
+            throw new Exception("File " + filePath + " does not have enough lines.");
+        }
+
+        data[i] = scanner.nextLine();
+    }
+
+    scanner.close();
+    return data;
+}
     
     private void validasiPinjaman(Pinjaman pinjaman) {
         if (pinjaman.getKondisiKendaraan().equalsIgnoreCase("Baru") && pinjaman.getTahunKendaraan() < Calendar.getInstance().get(Calendar.YEAR) - 1) {
